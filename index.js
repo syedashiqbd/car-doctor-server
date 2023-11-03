@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 app.use(
   cors({
     origin: [
-      //'http://localhost:5173',
+      // 'http://localhost:5173',
       'https://car-doctor-ashiq.web.app',
       'https://car-doctor-ashiq.firebaseapp.com',
     ],
@@ -82,7 +82,9 @@ async function run() {
     app.post('/logout', (req, res) => {
       const user = req.body;
       console.log(user);
-      res.clearCookie('token', { maxAge: 0 }).send({ success: true });
+      res
+        .clearCookie('token', { maxAge: 0, secure: true, sameSite: 'none' })
+        .send({ success: true });
     });
 
     // Service related apis
